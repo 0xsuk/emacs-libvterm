@@ -64,6 +64,8 @@
 
 (defvar vterm-copy-mode)
 
+(defvar vterm-input-mode)
+
 ;;; Compilation of the module
 
 (defcustom vterm-module-cmake-args ""
@@ -675,6 +677,10 @@ Exceptions are defined by `vterm-keymap-exceptions'."
     (define-key map (kbd "C-c C-p")        #'vterm-previous-prompt)
     map))
 
+(defvar vterm-input-mode-map
+  (let ((map (make-sparse-keymap)))
+    map)
+  )
 
 ;;; Mode
 
@@ -909,6 +915,12 @@ will invert `vterm-copy-exclude-prompt' for that call."
     (goto-char (vterm--get-end-of-line)))
   (kill-ring-save (region-beginning) (region-end))
   (vterm-copy-mode -1))
+
+(define-minor-mode vterm-input-mode
+  "TOggle `vterm-input-mode`."
+  :lighter " VTermInput"
+  :keymap vterm-input-mode
+  )
 
 ;;; Commands
 
